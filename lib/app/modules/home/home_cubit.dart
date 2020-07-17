@@ -11,7 +11,31 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._repository) : super(HomeState.initialState());
 
   Future<void> findRandomGifs() async {
-    final gifs = await _repository.getRandomGifs();
-    emit(HomeState.result(gifs));
+    try {
+      emit(HomeState.loading());
+      final gifs = await _repository.getRandomGifs();
+      emit(HomeState.result(gifs));
+    } catch (e) {
+      emit(HomeState.error('Erro ao buscar Gifs'));
+    }
+  }
+
+  Future<void> findGif(String value) async {
+    try {
+      emit(HomeState.loading());
+      List<GifModel> gifs;
+      if (value.length > 0) {
+        gifs = await _repository.searchGif(value);
+      } else {
+        gifs = await _repository.getRandomGifs();
+      }
+      emit(HomeState.result(gifs));
+    } catch (e) {
+      emit(HomeState.error('Erro ao buscar Gifs'));
+    }
+  }
+
+  void selectGif(GifModel gif) {
+    emit(state.copyWith(gifSelecionado: gif));
   }
 }
