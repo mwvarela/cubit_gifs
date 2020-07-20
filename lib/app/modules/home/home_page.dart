@@ -94,9 +94,11 @@ class HomePage extends StatelessWidget {
       builder: (BuildContext context, state) {
         if (state.gifSelecionado != null) {
           return Container(
-            child: Image.network(
-              state.gifSelecionado.url,
-              fit: BoxFit.cover,
+            child: Expanded(
+              child: Image.network(
+                state.gifSelecionado.url,
+                fit: BoxFit.cover,
+              ),
             ),
           );
         } else {

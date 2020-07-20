@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class GifModel extends Equatable {
-  String id;
-  String url;
+  final String id;
+  final String url;
 
-  GifModel({this.id, this.url});
+  const GifModel({this.id, this.url});
 
   @override
   List<Object> get props => [id, url];
